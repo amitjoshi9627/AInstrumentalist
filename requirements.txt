@@ -1,0 +1,6 @@
+streamlit
+numpy
+tensorflow
+music21
+sklearn
+matplotlib
