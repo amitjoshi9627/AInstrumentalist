@@ -11,7 +11,7 @@ def train():
     utils.save_file(X_test, file_path)
     num_layers = len(file_['X1'])
 
-    model = MusicGeneratorModel(num_layers)
+    model = MusicGeneratorModel(num_layers,retrain=False)
     history = model.train(X_train, y_train, X_test, y_test)
     utils.plot_graphs(history)
 

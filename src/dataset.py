@@ -12,27 +12,37 @@ def _get_notes_from_midi(file_name):
     file_path = os.path.join(config.DATA_PATH, file_name)
     midi = converter.parse(file_path)
     groups = instrument.partitionByInstrument(midi)
-
     notes = []
-
     for part in groups.parts:
-
         if 'Piano' in str(part):
             note_to_parse = part.recurse()
             for element in note_to_parse:
                 if isinstance(element, note.Note):
                     notes.append(str(element.pitch))
                 elif isinstance(element, chord.Chord):
-                    notes.append(".".join([str(n_)
-                                           for n_ in element.normalOrder]))
+                    notes.append(".".join([str(n_) for n_ in element.normalOrder]))
     print("------- Notes Extracted -------")
+    if notes == []:
+        return []
     return np.array(notes)
 
 
 def _get_all_notes():
-    files = [f for f in os.listdir(config.DATA_PATH) if f.endswith('.mid')]
-    notes = np.array([_get_notes_from_midi(f) for f in files])
-    return notes
+    if os.path.isfile(config.NUMPY_SAVEPATH):
+       notes_list = np.load(config.NUMPY_SAVEPATH,allow_pickle=True)
+    else:
+        files = [f for f in os.listdir(config.DATA_PATH) if f.endswith('.mid')]
+        notes = np.array([_get_notes_from_midi(f) for f in files])
+        notes_list = []
+        num_songs = 0
+        for note_ in notes:
+            if note_ != []:
+                num_songs+=1
+                notes_list.append(note_)
+        notes_list = np.array(notes_list)
+        np.save(config.NUMPY_SAVEPATH,notes_list)
+        print("No. of Songs for dataset:",num_songs)
+    return notes_list
 
 
 def _get_frequent_notes(note_list):
@@ -77,7 +87,7 @@ def get_data():
     notes_data = _get_frequent_notes(notes)
 
     X, y = _get_timestamp_data(notes_data)
-    print("\n\n\n LENGTH ", len(X), "\n\n\n\n")
+    print("\n\n Length of Data", len(X), "\n\n")
 
     X_int_to_note, X_note_to_int = _get_keys(list(set(X.ravel())))
     y_int_to_note, y_note_to_int = _get_keys(list(set(y)))

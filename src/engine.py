@@ -6,8 +6,8 @@ from music21 import chord, note, instrument, stream
 
 
 def _convert_to_midi(predicted_notes):
-    offset_ = 0
     output_notes = []
+    offset_ = 0
 
     for pattern in predicted_notes:
 
@@ -24,12 +24,11 @@ def _convert_to_midi(predicted_notes):
             new_chord.offset = offset_
             output_notes.append(new_chord)
         else:
-
             new_note = note.Note(pattern)
             new_note.offset = offset_
             new_note.storedInstrument = instrument.Piano()
             output_notes.append(new_note)
-        offset_ += 0.75
+        offset_ += 0.5
     midi_stream = stream.Stream(output_notes)
     return _save_midi(midi_stream)
 

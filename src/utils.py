@@ -28,14 +28,19 @@ def accuracy_score(data1, data2):
     return np.mean(np.array(data1) == np.array(data2))
 
 
-def save(model):
-    if not os.path.exists("../saved_model/"):
-        os.makedirs('../saved_model/')
-    model.save(config.MODEL_PATH)
+def save(model,path=None):
+    if not path:
+        if not os.path.exists("../saved_model/"):
+            os.makedirs('../saved_model/')
+        model.save(config.MODEL_PATH)
+    else:
+        if not os.path.exists("../saved_model/"):
+            os.makedirs('../saved_model/')
+        model.save(path)
 
 
 def load():
-    model = load_model(config.MODEL_PATH)
+    model = load_model(config.FINAL_MODEL)
     return model
 
 
