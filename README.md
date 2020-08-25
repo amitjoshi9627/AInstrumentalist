@@ -1,6 +1,6 @@
 # AInstrumentalist
 ### By Amit Joshi
-An AI model which generates instrumental music
+AInstrumentalist is an AI model which generates instrumental music
 
 <img src="src/img/screenshot1.png?raw=true" width="1000">
 <img src="src/img/screenshot2.png?raw=true" width="1000">
