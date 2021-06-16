@@ -4,3 +4,5 @@ tensorflow
 music21
 sklearn
 matplotlib
+midi2audio
+pydub
