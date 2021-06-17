@@ -1,0 +1,3 @@
+lame
+timidity
+ffmpeg

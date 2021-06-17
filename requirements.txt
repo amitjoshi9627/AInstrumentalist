@@ -6,3 +6,4 @@ sklearn
 matplotlib
 midi2audio
 pydub
+matplotlib
