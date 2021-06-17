@@ -41,7 +41,7 @@ def _get_all_notes():
         notes_list = []
         num_songs = 0
         for note_ in notes:
-            if note_ != []:
+            if len(note_) != 0:
                 num_songs += 1
                 notes_list.append(note_)
         notes_list = np.array(notes_list, dtype="object")
